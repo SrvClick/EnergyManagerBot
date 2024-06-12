@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy BOT</title>
+    <!-- Bootstrap CSS -->
+    <link href="assets/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            flex-direction: column;
+            margin: 0;
+        }
+        .btn-custom {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            margin: 0;
+        }
+        h1 {
+            margin: 0;
+            padding: 10px 0;
+            color: #343a40;
+        }
+        .log-content-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .log-content {
+            margin-top: 20px;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            height: 450px;
+            overflow-y: auto;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            white-space: pre-wrap;
+            font-family: monospace;
+            color: #495057;
+        }
+        .btn-group-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .btn-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Energy BOT</h1>
+    <div class="btn-group-container">
+        <div class="btn-column">
+            <a href="#" id="start-log-btn" class="btn btn-primary btn-custom">Start Log</a>
+            <a href="#" id="storage-log-btn" class="btn btn-secondary btn-custom">Storage Log</a>
+            <a href="#" id="force-sale-btn" class="btn btn-danger btn-custom">Forzar Venta</a>
+        </div>
+        <div class="btn-column">
+            <a href="#" id="start-log-2-btn" class="btn btn-primary btn-custom">Start Log 2</a>
+            <a href="#" id="storage-log-2-btn" class="btn btn-secondary btn-custom">Storage Log 2</a>
+            <a href="#" id="force-sale-2-btn" class="btn btn-danger btn-custom">Forzar Venta 2</a>
+        </div>
+    </div>
+    <div class="log-content-container">
+        <div id="log-content" class="log-content"></div>
+    </div>
+</div>
+
+<!-- jQuery and Bootstrap JS -->
+<script src="assets/jquery-3.5.1.min.js"></script>
+<script src="assets/popper.min.js"></script>
+<script src="assets/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        function loadLog(fileName) {
+            $.ajax({
+                url: fileName,
+                dataType: "text",
+                success: function(data) {
+                    $("#log-content").text(data);
+                },
+                error: function() {
+                    $("#log-content").text("Error loading log file.");
+                }
+            });
+        }
+
+        function forceSale(url) {
+            $.ajax({
+                url: url,
+                method: 'POST',
+                success: function(response) {
+                    $("#log-content").text(response);
+                },
+                error: function() {
+                    $("#log-content").text("Error executing force sale.");
+                }
+            });
+        }
+
+        $("#start-log-btn").click(function(event) {
+            event.preventDefault();
+            loadLog("start.log");
+        });
+
+        $("#storage-log-btn").click(function(event) {
+            event.preventDefault();
+            loadLog("storage.log");
+        });
+
+        $("#start-log-2-btn").click(function(event) {
+            event.preventDefault();
+            loadLog("start2.log");
+        });
+
+        $("#storage-log-2-btn").click(function(event) {
+            event.preventDefault();
+            loadLog("storage2.log");
+        });
+
+        $("#force-sale-btn").click(function(event) {
+            event.preventDefault();
+            forceSale('/admin/GameBot/example/sell.php');
+        });
+
+        $("#force-sale-2-btn").click(function(event) {
+            event.preventDefault();
+            forceSale('/admin/GameBot/example/sell2.php');
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+    "name": "srvclick/energybot",
+    "description": "Energy Manager Game Bot",
+    "type": "project",
+    "require": {
+        "srvclick/scurl": "^1.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Srvclick\\Energybot\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "SrvClick",
+            "email": "admin@srvclick.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
